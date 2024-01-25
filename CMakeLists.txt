@@ -1,5 +1,8 @@
 
-include("vcpkg.cmake")
+if(EXISTS "${CMAKE_SOURCE_DIR}/vcpkg.json")
+    message("Using vcpkg toolchain")
+    include("vcpkg.cmake")
+endif()
 
 list(APPEND CMAKE_PROJECT_TOP_LEVEL_INCLUDES "${CMAKE_CURRENT_LIST_DIR}/csound-plugin.cmake")
 
