@@ -6,8 +6,8 @@ message(STATUS "Fetching vcpkg")
 include(FetchContent)
 FetchContent_Declare(
     vcpkg
-    URL https://github.com/microsoft/vcpkg/archive/refs/tags/2023.11.20.tar.gz
-    URL_MD5 24d44e89fc845d67051a52ed5066fc84
+    URL https://github.com/microsoft/vcpkg/archive/refs/tags/2024.04.26.tar.gz
+    URL_MD5 0c453e093366fa60585ce5f5fc3965c4
     DOWNLOAD_DIR "${FETCHCONTENT_BASE_DIR}/vcpkg"
     DOWNLOAD_EXTRACT_TIMESTAMP true
 )
