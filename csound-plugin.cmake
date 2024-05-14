@@ -49,7 +49,7 @@ endfunction()
 
 # Adds the given `TARGET` with the given `SOURCES` and `LIBRARIES` to the build as a Csound plugin.
 macro(add_csound_plugin)
-    cmake_parse_arguments(ARG "" "TARGET" "SOURCES;LIBRARIES" ${ARGN})
+    cmake_parse_arguments(ARG "" "TARGET" "SOURCES;LIBRARIES;TEST_ORCS" ${ARGN})
 
     include("${CMakeCsoundPlugin_DIR}/config.cmake")
 
@@ -64,4 +64,18 @@ macro(add_csound_plugin)
     )
 
     install(TARGETS ${ARG_TARGET} LIBRARY DESTINATION "${CSOUND_PLUGINS_DIR}")
+
+    if(ARG_TEST_ORCS)
+        enable_testing()
+    endif()
+
+    foreach(test_orc ${ARG_TEST_ORCS})
+        add_test(NAME ${ARG_TARGET}_${test_orc}
+            COMMAND
+                ${CMAKE_COMMAND}
+                -DTEST_ORC=${CMAKE_CURRENT_SOURCE_DIR}/${test_orc}
+                -DCSOUND_TESTING_DIR=${CSOUND_TESTING_DIR}
+                -P ${cmakecsoundplugin_SOURCE_DIR}/Scripts/run-csound-test.cmake
+        )
+    endforeach()
 endmacro()
