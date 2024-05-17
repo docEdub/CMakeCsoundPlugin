@@ -66,16 +66,23 @@ macro(add_csound_plugin)
     install(TARGETS ${ARG_TARGET} LIBRARY DESTINATION "${CSOUND_PLUGINS_DIR}")
 
     if(ARG_TEST_ORCS)
-        enable_testing()
-    endif()
-
-    foreach(test_orc ${ARG_TEST_ORCS})
-        add_test(NAME ${ARG_TARGET}_${test_orc}
-            COMMAND
-                ${CMAKE_COMMAND}
-                -DTEST_ORC=${CMAKE_CURRENT_SOURCE_DIR}/${test_orc}
-                -DCSOUND_TESTING_DIR=${CSOUND_TESTING_DIR}
-                -P ${cmakecsoundplugin_SOURCE_DIR}/Scripts/run-csound-test.cmake
+        list(APPEND csound_testing_options
+            --messagelevel=0
+            --midi-device=0
+            --nodisplays
+            --nosound
+            --output=null
+            -+msg_color=false
+            -+rtmidi=NULL
+            --env:INCDIR+=${CSOUND_TESTING_DIR}
         )
-    endforeach()
+
+        enable_testing()
+
+        foreach(test_orc ${ARG_TEST_ORCS})
+            add_test(NAME ${ARG_TARGET}_${test_orc}
+                COMMAND csound  ${csound_testing_options} ${CMAKE_CURRENT_SOURCE_DIR}/${test_orc} ${CSOUND_TESTING_DIR}/test.sco
+            )
+        endforeach()
+    endif()
 endmacro()
