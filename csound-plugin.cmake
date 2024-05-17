@@ -84,6 +84,7 @@ macro(add_csound_plugin)
                 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                 COMMAND csound  ${csound_testing_options} ${CMAKE_CURRENT_SOURCE_DIR}/${test_orc} ${CSOUND_TESTING_DIR}/test.sco
             )
+            set_property(TEST ${ARG_TARGET}_${test_orc} PROPERTY PASS_REGULAR_EXPRESSION "All tests passed.")
         endforeach()
     endif()
 endmacro()
