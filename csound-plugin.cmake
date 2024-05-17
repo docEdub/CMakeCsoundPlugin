@@ -81,6 +81,7 @@ macro(add_csound_plugin)
 
         foreach(test_orc ${ARG_TEST_ORCS})
             add_test(NAME ${ARG_TARGET}_${test_orc}
+                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                 COMMAND csound  ${csound_testing_options} ${CMAKE_CURRENT_SOURCE_DIR}/${test_orc} ${CSOUND_TESTING_DIR}/test.sco
             )
         endforeach()
