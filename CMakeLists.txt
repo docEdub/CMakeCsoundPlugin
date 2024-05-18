@@ -7,7 +7,7 @@ endif()
 fetch_dependency(
     NAME CsoundTesting
     GIT_REPOSITORY git@github.com:docEdub/CsoundTesting.git
-    GIT_TAG 50b551c149e62cee387a4b37cc718df915e2d9c7
+    GIT_TAG 880b6b5fab2f5eed6cf38b3b74b83ebc5ec34fc5
 )
 
 set(CSOUND_TESTING_DIR "${csoundtesting_SOURCE_DIR}" PARENT_SCOPE)
